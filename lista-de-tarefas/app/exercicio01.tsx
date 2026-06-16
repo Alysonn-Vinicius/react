@@ -1,15 +1,13 @@
 'use client'
 
+
+import { pessoas } from "@/src/data/pessoas";
 import { useState } from "react";
+
 
 export default function atividade() {
   const [log, setLog] = useState(false);
   const [count, setCount] = useState(0);
-  const pessoas = [
-    { id: 1, nome: 'Ana' },
-    { id: 2, nome: 'Carlos' },
-    { id: 3, nome: 'João' }
-  ];
   const handleAdc = () => {
     setCount(count + 1);
   }
