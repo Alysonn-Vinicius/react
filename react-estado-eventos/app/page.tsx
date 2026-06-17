@@ -14,6 +14,13 @@ const Home = () => {
 
     const [nomeInput, setNomeInput] = useState('');
 
+    const [fullName, setFullName] = useState({name: '', sobrenome: ''})
+
+
+    const handleClear = () => {
+        setFullName({...fullName, name:"", sobrenome:""})
+    }
+
     return (
         <main className="container mx-auto bg-slate-800 flex justify-center items-center h-screen flex-col gap-7">
            <div className="flex flex-col gap-0">
@@ -46,6 +53,24 @@ const Home = () => {
                     o que esta sendo digitado: <br /> 
                     { nomeInput}
                 </div>
+           </div>
+            
+           <div className="flex flex-col gap-2">
+            <h2>State em Objetos</h2>
+            <input type="text" placeholder="digite seu nome"
+            value={fullName.name}
+            onChange={e=> setFullName({...fullName, name:e.target.value})}
+            />
+            <input type="text" placeholder="digite seu sobrenome"
+            value={fullName.sobrenome}
+            onChange={e=> setFullName({...fullName, sobrenome:e.target.value})}
+            />
+
+            <button onClick={handleClear}>Clear Campos</button>
+
+            <hr />
+            <div>{fullName.name} {fullName.sobrenome}</div>
+
            </div>
 
         </main>
