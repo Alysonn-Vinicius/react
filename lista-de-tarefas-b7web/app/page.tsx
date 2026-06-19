@@ -1,3 +1,4 @@
+
 'use client'
 import { TodoItem } from "@/src/types/TodoItem";
 import { useState } from "react";
@@ -133,12 +134,73 @@ export default function Home() {
         { id: 3, produto: "Sushi", quantidade: 3, entregue: false },
     ])
     //Sua tarefa: crie duas funções:
-    //entregarPedido(id: number) — marca entregue: true no pedido clicado. limparEntregues() — remove todos os pedidos com entregue: true
+    //entregarPedido(id: number) — marca entregue: true no pedido clicado. 
+    //limparEntregues() — remove todos os pedidos com entregue: true
     const entregarPedido = (id: number) => {
-        
+        setPedidos(
+            pedidos.map(item => {
+                if(item.id === id) {
+                    return {...item, entregue: true}
+                }
+                return item;
+            })
+        )
+    }
+    const limparEntregues = () => {
+        setPedidos(pedidos.filter(item => !item.entregue))
+    }
+
+    //exercicios
+    const [alunos, setAlunos] = useState([
+        {id: 1, nome: "Ana", nota: 4 , aprovado: false},
+        {id: 2, nome: "Bruno", nota: 8, aprovado: false},
+        {id: 3, nome: "Carol", nota: 6, aprovado: false},
+        {id: 4, nome: "Diego", nota: 3, aprovado: false},
+    ])
+    //calcularAprovado() que marca aprovado: true em todos os alunos com nota >= 6 e aprovado: false nos demais
+    const calcularAprovado = () => {
+        setAlunos(
+            alunos.map(item => ({...item, aprovado: item.nota >= 6}))
+        )
+    }
+
+    //exercicios
+    const [funcionarios, setFuncionarios] = useState([
+        {id: 1, nome: "Ana", salario: 2000, cargo: "vendedor"},
+        {id: 2, nome: "Carol", salario: 3000, cargo: "gerente"},
+        {id: 3, nome: "Diego", salario: 2500, cargo: "vendedor"},
+        {id: 4, nome: "Diego", salario: 4000, cargo: "gerente"},
+    ])
+    //crie uma funcao darAumento() que aumenta o slario em +500 apensa dos funcionarios com cargo === gerente
+    const darAumento = () => {
+        setFuncionarios(
+            funcionarios.map(item =>  {
+                if(item.cargo === 'gerente') {
+                    return {...item, salario: item.salario + 500}
+                }
+                return item;
+            })
+        )
+
+        setFuncionarios(
+            funcionarios.map(item => (item.cargo === 'gerente' ? {...item, salario: item.salario + 500} : item))
+        )
     }
 
 
+    //exercicios
+    const [vendas, setVendas] = useState([
+        {id: 1, vendedor: "Ana", valor: 1000, paga: false},
+        {id: 2, vendedor: "Bruno", valor: 1500, paga: true},
+        {id: 3, vendedor: "Carol", valor: 2200, paga: false},
+        {id: 4, vendedor: "Eduardo", valor: 800, paga: false},
+        {id: 5, vendedor: "Alysonn", valor: 3000, paga: false},
+    ])
+    const pagarVendedor = (vendedor: string) => {
+        setVendas(
+            vendas.map(item=> (item.vendedor === vendedor ? {...item, paga: true} :item))
+        )
+    }
     //adiciona item ao array
     const handleAdicionar = () => {
         if (nomeInput.trim() === "") {
