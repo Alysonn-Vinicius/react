@@ -18,7 +18,7 @@ export const questions: Question[] = [
             { id: 1, option: "Corante", correta: false },
             { id: 2, option: "Àgua", correta: true },
             { id: 3, option: "Fermento", correta: false },
-            { id: 4, option: "Oléo", correta: false },
+            { id: 4, option: "Oléo  ", correta: false },
         ]
     },
     {
