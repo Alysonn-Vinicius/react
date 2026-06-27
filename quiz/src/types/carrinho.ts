@@ -1,4 +1,4 @@
-type Carrinho = {
+export type Carrinho = {
     id: number,
     nome:string,
     preco:number,

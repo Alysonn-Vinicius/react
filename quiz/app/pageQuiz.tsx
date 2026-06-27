@@ -13,24 +13,25 @@ export default function Quiz() {
   const [correctQuest, setCorrectQuest] = useState(0);
 
   const handleOption = (res: Resposta) => {
-    if(resSelected === null){
+    if (resSelected === null) {
       setResSelected(res);
-       setTimeout(() => {
-      if ((questAtual + 1) < questions.length) {
-        setQuestAtual(questAtual + 1);
-        setResSelected(null);
-      } else {
-        setShowModalFim(true);
+      if (res.correta) {
+        setCorrectQuest(prev => prev + 1);
       }
-    }, 1000)
+      setTimeout(() => {
+        if ((questAtual + 1) < questions.length) {
+          setQuestAtual(questAtual + 1);
+          setResSelected(null);
+        } else {
+          setShowModalFim(true);
+        }
+      }, 1000)
     }
-    
-   
-    if (res.correta) {
-      setCorrectQuest(correctQuest + 1);
-    }
+
+
+
   }
-  const handleInitial = () =>{
+  const handleInitial = () => {
     setCorrectQuest(0);
     setQuestAtual(0);
     setResSelected(null)
@@ -41,8 +42,8 @@ export default function Quiz() {
     <div className="w-full h-screen flex justify-center items-center bg-blue-600 p-4">
       {showModalFim
         ?
-        <Modal 
-          corrects={correctQuest} 
+        <Modal
+          corrects={correctQuest}
           init={handleInitial}
         />
         :
