@@ -1,14 +1,20 @@
 'use client'
+import { GridCom } from '@/src/componentes/gridComponentes';
 import { ListItem } from '@/src/componentes/listItem';
 import { useState } from 'react';
 import { RiDeleteBin6Line, RiGraduationCapLine, RiMailLine } from 'react-icons/ri';
 
+
 export default function Home() {
 
   const [listAlunos, setListAlunos] = useState<Aluno[]>([
-    { id: 1, nome: 'Alyson', aprovado: false },
+    { id: 1, nome: 'Alysonn Vinicius', aprovado: false },
+    { id: 2, nome: 'Carol Morais', aprovado: true },
   ]);
   const [nomeInput, setNomeInput] = useState('');
+
+  const alunosAprovados = listAlunos.filter(aluno => aluno.aprovado);
+  const alunosReprovados = listAlunos.filter(aluno => !aluno.aprovado);
 
   //adicionar itens
   const handleAdc = (nome: string) => {
@@ -26,9 +32,17 @@ export default function Home() {
   //trocar de abas
   const [abaAtiva, setAbaAtiva] = useState<"todos" | "aprovados" | "reprovados">("todos");
 
- const aprovado = listAlunos.filter(aprov => aprov.aprovado);
- const reprovado = listAlunos.filter(reprov => !reprov.aprovado);
-  
+  const AlunosFiltrados = () => {
+    if (abaAtiva === 'aprovados') return alunosAprovados;
+    if (abaAtiva === 'reprovados') return alunosReprovados;
+    return listAlunos;
+  }
+
+
+  //handle check
+  const handleCheck = (id: number) => {
+    setListAlunos(listAlunos.map(aluno => aluno.id === id ? { ...aluno, aprovado: !aluno.aprovado } : aluno))
+  }
 
   return (
     <div className="w-screen h-screen p-4 flex justify-center items-center">
@@ -59,28 +73,36 @@ export default function Home() {
           <div>
             <div>{/*area grande */}
               <div className="flex justify-around gap-2"> {/*area 3 botoes */}
-                <button className="border border-gray-700 px-8 py-2 rounded-md hover:bg-blue-600 cursor-pointer transition-all bg-gray-700 flex-1" onClick={()=>{setAbaAtiva("todos")}}>
-                  Todos
+                <button className="border border-gray-700 px-8 py-2 rounded-md hover:bg-blue-600 cursor-pointer transition-all bg-gray-700 flex-1" onClick={() => { setAbaAtiva("todos") }}>
+                  Todos {`(${(listAlunos.length)})`}
                 </button>
-                <button className="border border-gray-700 px-8 py-2 rounded-md hover:bg-blue-600 cursor-pointer transition-all bg-gray-700 flex-1" onClick={()=>{setAbaAtiva("aprovados")}}  >
-                  Aprovados
+                <button className="border border-gray-700 px-8 py-2 rounded-md hover:bg-blue-600 cursor-pointer transition-all bg-gray-700 flex-1" onClick={() => { setAbaAtiva("aprovados") }}  >
+                  Aprovados {`(${alunosAprovados.length})`}
                 </button>
-                <button className="border border-gray-700 px-8 py-2 rounded-md hover:bg-blue-600 cursor-pointer transition-all bg-gray-700 flex-1" onClick={()=>{setAbaAtiva("reprovados")}}>
-                  Reprovados
+                <button className="border border-gray-700 px-8 py-2 rounded-md hover:bg-blue-600 cursor-pointer transition-all bg-gray-700 flex-1" onClick={() => { setAbaAtiva("reprovados") }}>
+                  Reprovados {`(${alunosReprovados.length})`}
                 </button>
               </div>
             </div>
             {listAlunos.length >= 1 &&
               <>
                 <h4 className="text-xl my-2 text-white">Alunos:</h4>
-                <ListItem array={(abaAtiva === 'aprovados')? aprovado : (abaAtiva === 'reprovados') ? reprovado : listAlunos} onclick={handleRemove} />
+
+                <ListItem
+                  array={AlunosFiltrados()}
+                  onclick={handleRemove}
+                  handleCheck={handleCheck} 
+                />
               </>
 
             }
-
           </div>
-
         </div>
+        <GridCom 
+        alunos={listAlunos}
+        alunosAprovados={alunosAprovados}
+        alunosReprovados={alunosReprovados}
+        />
       </section>
     </div>
   );
