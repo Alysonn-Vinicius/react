@@ -1,3 +1,6 @@
+import { RiCheckboxCircleLine, RiCloseCircleLine, RiGroupFill } from "react-icons/ri";
+import { CardRes } from "./cardResumo";
+
 type Props = {
   alunos: Aluno[];
   alunosAprovados: Aluno[];
@@ -5,28 +8,26 @@ type Props = {
 }
 export const GridCom = ({alunos, alunosAprovados, alunosReprovados}:Props) => {
     return(
-        <article className='grid gap-2 grid-cols-3'>
-            <div className='border border-gray-700 p-4 rounded-md flex flex-col'>
-              <div className='text-gray-500 font-semibold text-sm'>Total de alunos</div>
-              <div className="flex justify-between items-center ">
-                <div className="font-bold text-2xl text-blue-600">{alunos.length}</div>
-                <div>img</div>
-              </div>
-            </div>
-            <div className='border border-gray-700 p-4 rounded-md'>
-              <div className='text-gray-500 font-semibold text-sm'>Aprovados</div>
-              <div className="flex justify-between items-center ">
-                <div className="font-bold text-2xl text-green-600">{alunosAprovados.length}</div>
-                <div>img</div>
-              </div>
-            </div>
-            <div className='border border-gray-700 p-4 rounded-md'>
-              <div className='text-gray-500 font-semibold text-sm'>Reprovados</div>
-              <div className="flex justify-between items-center ">
-                <div className="font-bold text-2xl text-red-700">{alunosReprovados.length}</div>
-                <div>img</div>
-              </div>
-            </div>
-        </article>
+        <div className='grid gap-2 grid-cols-3'>
+            <CardRes 
+            Icone={RiGroupFill}
+            label="Total de Alunos"
+            quantidade={alunos.length}
+            cor="text-blue-600"
+            />
+            <CardRes 
+            label="Aprovados"
+            quantidade={alunosAprovados.length}
+            Icone={RiCheckboxCircleLine}
+            cor="text-green-400"
+            />
+            
+            <CardRes 
+            label="Reprovados"
+            quantidade={alunosReprovados.length}
+            Icone={RiCloseCircleLine}
+            cor="text-red-500"
+            />
+        </div>
     );
 }

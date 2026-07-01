@@ -14,7 +14,7 @@ export const ListItem = ({ array, onclick, handleCheck }: Props) => {
                         <input type="checkbox"
                             className='w-6 h-6'
                             checked={item.aprovado}
-                            onClick={()=> handleCheck(item.id)}
+                            onChange={()=> handleCheck(item.id)}
                         />
                         <div>{item.nome}</div>
                     </div>
