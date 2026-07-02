@@ -8,8 +8,8 @@ type Props ={
 export const DeleteModal = ({nome, handleDelete, handleCancel }:Props) => {
     return (
         <>
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm text-center">
-                <div className="w-105 rounded-2xl border border-zinc-700 bg-[#171C25] p-8 shadow-2xl animate-in fade-in zoom-in-95 duration-200 flex flex-col gap-3">
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md text-center">
+                <div className="w-105 rounded-2xl border border-zinc-700 bg-[#171C25]/80 backdrop-blur-sm p-8 shadow-2xl animate-in fade-in zoom-in-95 duration-200 flex flex-col gap-3">
                     <span className="flex justify-center rounded-full border-red-500">
                         <RiDeleteBin2Line className="text-red-500" size={50} />
                     </span>

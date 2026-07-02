@@ -1,32 +1,30 @@
 'use client'
 import { DeleteModal } from '@/src/componentes/deletemoda';
 import { FilterTabs } from '@/src/componentes/FilterTabs';
-import { Input } from '@/src/componentes/input';
 import { GridCom } from '@/src/componentes/gridComponentes';
 import { Header } from '@/src/componentes/header';
 import { ListItem } from '@/src/componentes/listItem';
 import { useState } from 'react';
-import { RiDeleteBin6Line, RiGraduationCapLine, RiMailLine } from 'react-icons/ri';
+import { RiGraduationCapLine } from 'react-icons/ri';
 import { FormInputs } from '@/src/componentes/formInputs';
 
 
 export default function Home() {
 
   const [listAlunos, setListAlunos] = useState<Aluno[]>([
-    { id: 1, nome: 'Alysonn Vinicius', aprovado: false },
-    { id: 2, nome: 'Carol Morais', aprovado: true },
+    //{ id: 1, nome: 'Alysonn Vinicius', aprovado: false },
+    //{ id: 2, nome: 'Carol Morais', aprovado: true },
   ]);
-  const [nomeInput, setNomeInput] = useState('');
 
   const alunosAprovados = listAlunos.filter(aluno => aluno.aprovado);
   const alunosReprovados = listAlunos.filter(aluno => !aluno.aprovado);
 
   //adicionar itens
-  const handleAdc = (nome: string) => {
-    setListAlunos(
-      [...listAlunos, { id: listAlunos.length + 1, nome: nome, aprovado: false }]
-    );
-    setNomeInput("");
+  const handleAdc = (aluno:Aluno) => {
+    const media = (aluno.nota1 + aluno.nota2 + aluno.nota3 + aluno.nota4) / 4;
+    const aprovado = media >=7;
+   setListAlunos([...listAlunos, { ...aluno, id: listAlunos.length + 1, aprovado }]);
+  
   }
   //abrir modal p/excluir itens
   const openModal = (id: number) => {
@@ -49,11 +47,6 @@ export default function Home() {
     return listAlunos;
   }
 
-
-  //handle check
-  const handleCheck = (id: number) => {
-    setListAlunos(listAlunos.map(aluno => aluno.id === id ? { ...aluno, aprovado: !aluno.aprovado } : aluno))
-  }
   //cancel
   const cancel = () => {
     setAlunoParaExcluir(null);
@@ -66,7 +59,7 @@ export default function Home() {
 
   return (
     <div className="w-screen h-screen p-4 flex justify-center items-center">
-      <section className="container mx-auto w-full max-w-3xl bg-gray-900 rounded-md p-4 flex flex-col gap-3">{/**main */}
+      <section className="container mx-auto w-full max-w-xl md:max-w-5xl bg-gray-900 rounded-md p-4 flex flex-col gap-3">{/**main */}
 
         <Header
         labelTitulo='Sistema de Alunos' 
@@ -74,8 +67,9 @@ export default function Home() {
         labelParagrafo='Adicione alunos e gerencie seus status de aprovação' 
         />      
         
-        <Input nomeVar={nomeInput} onAdd={handleAdc} setNome={setNomeInput}/>
-        <div className='bg-gray-800 p-2 rounded-md w-full flex flex-col gap-3'>
+        {/** */}
+        <FormInputs onAdd={handleAdc}/>
+        <div className='bg-gray-800/60 backdrop-blur-sm p-2 rounded-md w-full flex flex-col gap-3'>
           <div>
             <FilterTabs setAba={setAbaAtiva} abaAtiva={abaAtiva}/>
             {listAlunos.length >= 1 &&
@@ -85,7 +79,6 @@ export default function Home() {
                 <ListItem
                   array={AlunosFiltrados()}
                   onclick={openModal}
-                  handleCheck={handleCheck}
                 />
               </>
 
