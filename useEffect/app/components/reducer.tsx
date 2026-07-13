@@ -1,6 +1,6 @@
 import { useReducer, useState } from "react";
 import { Item } from "../types/item";
-import { listReducer } from "./reducers/listReducer";
+import { listReducer } from "../reducers/listReducer";
 
 
 export const TesteReduce = () => {
